@@ -1,0 +1,211 @@
+SCHÉMA ISIS - MACHINE À LAVER AUTOMATISÉE
+==========================================
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                        SYSTÈME COMPLET EN ISIS                                ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+                              SCHÉMA GÉNÉRAL
+                              ══════════════
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                                                                 │
+    │        ╔════════════════════════════════════════════╗           │
+    │        ║         ARDUINO MEGA 2560 (U1)            ║           │
+    │        ║                                            ║           │
+    │        ║  Pin 20 ────────────────────────────────┐ ║           │
+    │        ║  Pin 21 ────────────────────────────────┤ ║           │
+    │        ║                                         │ ║           │
+    │        ║  Pin 22-27: RELAIS 1-6                │ ║           │
+    │        ║  Pin 28-31: BOUTONS Menu/Up/Down/OK  │ ║           │
+    │        ║  Pin 32-35: SIGNAUX START/STOP/MODE/TEMP           │
+    │        ║                                         │ ║           │
+    │        ║  Pin A0-A3: CAPTEURS NIVEAU            │ ║           │
+    │        ║  Pin VCC: +5V                          │ ║           │
+    │        ║  Pin GND: MASSE                        │ ║           │
+    │        ║                                        │ ║           │
+    │        ╚════════════════════════════════════════╝ ║           │
+    │                    │              │ │             │           │
+    │                    │              │ │             │           │
+    │                    │              │ └─────────────┤           │
+    │                    │              │               │           │
+    │                    │              └───────────────┤           │
+    │                    │                              │           │
+    │                    ▼                              ▼           │
+    │          ╔══════════════════╗          ╔════════════════╗    │
+    │          ║  LCD I2C 20x4    ║          ║  I2C CONNEXION ║    │
+    │          ║  SDA Pin 20  ────╋──────────╋─ OUT SDA       ║    │
+    │          ║  SCL Pin 21  ────╋──────────╋─ OUT SCL       ║    │
+    │          ║  VCC (+5V)   ────╋──────────╋─ OUT VCC       ║    │
+    │          ║  GND        ─────╋──────────╋─ OUT GND       ║    │
+    │          ║                  ║          ║                ║    │
+    │          ║ ┌──────────────┐ ║          ╚════════════════╝    │
+    │          ║ │ AFFICHAGE    │ ║                                │
+    │          ║ │ 20 x 4 CHARS │ ║                                │
+    │          ║ │              │ ║                                │
+    │          ║ │ Ligne 1: Menu│ ║                                │
+    │          ║ │ Ligne 2: Mode│ ║                                │
+    │          ║ │ Ligne 3: Temp│ ║                                │
+    │          ║ │ Ligne 4: État│ ║                                │
+    │          ║ └──────────────┘ ║                                │
+    │          ╚══════════════════╝                                │
+    │                                                              │
+    └─────────────────────────────────────────────────────────────┘
+
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                        SECTION RELAIS                           │
+    │                                                                 │
+    │    Arduino Pin 22 ─────┐                                       │
+    │                        ├─────► K1 (Relais 1) ─────► SOL1 (Eau) │
+    │                        │      ╔════════════╗                    │
+    │                        │      ║   RELAIS   ║                    │
+    │                        │      ║   5V 5A    ║                    │
+    │                        │      ║            ║                    │
+    │    +5V ───────────────►│──┐───║ VCC   IN   ║                   │
+    │                        │  │   ╚════════════╝                   │
+    │    GND ───────────────►└──┴───► GND                            │
+    │                                 │                              │
+    │                            [D_Protect]                         │
+    │                              1N4007                            │
+    │                                 │                              │
+    │                             Électrovanne                       │
+    │                                                                 │
+    │    De même pour K2-K6 (Savon, Détergent, Rinçage,             │
+    │                         Vidange, Essorage)                     │
+    │                                                                 │
+    └─────────────────────────────────────────────────────────────────┘
+
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                    SECTION CAPTEURS                             │
+    │                                                                 │
+    │    +5V                                                          │
+    │     │                                                           │
+    │    ┌─R1 (10kΩ potentiomètre)                                   │
+    │    │       ──┬── Arduino A0 (Niveau Eau)                       │
+    │    │        │                                                   │
+    │   GND      [C 100nF]                                           │
+    │    │        │                                                   │
+    │    └────────┴───► GND                                          │
+    │                                                                 │
+    │    De même pour R2-R4 (A1-A3)                                  │
+    │    - R2: Niveau Savon                                          │
+    │    - R3: Niveau Détergent                                      │
+    │    - R4: Niveau Rinçage                                        │
+    │                                                                 │
+    └─────────────────────────────────────────────────────────────────┘
+
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                    SECTION BOUTONS                              │
+    │                                                                 │
+    │    Arduino Pin 28 ──┐                                           │
+    │                     ├─► [SW1] ──► GND     [Menu]              │
+    │                     │                                           │
+    │                     └─► [D7 LED] ──┬── [R 470Ω] ── GND        │
+    │                                    │                            │
+    │                                   +5V (indication)              │
+    │                                                                 │
+    │    De même pour Pin 29-31 (Haut, Bas, OK)                      │
+    │    Et Pin 32-35 (Signaux START, STOP, MODE, TEMP)             │
+    │                                                                 │
+    │    Chaque bouton a :                                           │
+    │    - Une connexion GND (logique LOW = appuyé)                  │
+    │    - Une LED d'indication (rouge pour boutons, bleu pour       │
+    │      signaux)                                                  │
+    │                                                                 │
+    └─────────────────────────────────────────────────────────────────┘
+
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                  INTERCONNEXIONS PRINCIPALES                    │
+    │                                                                 │
+    │    Alias: POWER                                                 │
+    │    ├─► +5V (tous les VCC)                                      │
+    │    ├─► GND (tous les GND)                                      │
+    │    │                                                           │
+    │    Alias: I2C_BUS                                              │
+    │    ├─► SDA (Arduino Pin 20 ─ LCD1 Pin 3)                      │
+    │    ├─► SCL (Arduino Pin 21 ─ LCD1 Pin 4)                      │
+    │    │                                                           │
+    │    Alias: RELAIS_CONTROL                                       │
+    │    ├─► K1 In ─ Arduino Pin 22                                 │
+    │    ├─► K2 In ─ Arduino Pin 23                                 │
+    │    ├─► K3 In ─ Arduino Pin 24                                 │
+    │    ├─► K4 In ─ Arduino Pin 25                                 │
+    │    ├─► K5 In ─ Arduino Pin 26                                 │
+    │    ├─► K6 In ─ Arduino Pin 27                                 │
+    │    │                                                           │
+    │    Alias: BUTTONS_INPUT                                        │
+    │    ├─► Menu (Arduino Pin 28)                                  │
+    │    ├─► Up   (Arduino Pin 29)                                  │
+    │    ├─► Down (Arduino Pin 30)                                  │
+    │    ├─► OK   (Arduino Pin 31)                                  │
+    │    │                                                           │
+    │    Alias: SIGNALS_INPUT                                        │
+    │    ├─► START (Arduino Pin 32)                                 │
+    │    ├─► STOP  (Arduino Pin 33)                                 │
+    │    ├─► MODE  (Arduino Pin 34)                                 │
+    │    ├─► TEMP  (Arduino Pin 35)                                 │
+    │    │                                                           │
+    │    Alias: SENSORS_ANALOG                                       │
+    │    ├─► Water   (Arduino A0)                                   │
+    │    ├─► Soap    (Arduino A1)                                   │
+    │    ├─► Deterg  (Arduino A2)                                   │
+    │    ├─► Rinse   (Arduino A3)                                   │
+    │                                                                 │
+    └─────────────────────────────────────────────────────────────────┘
+
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                   LISTE DES COMPOSANTS                          │
+    │                                                                 │
+    │    U1        Arduino Mega 2560      1 unité                    │
+    │    K1-K6     Relais 5V 5A           6 unités                   │
+    │    LCD1      LCD 20x4 I2C (0x27)    1 unité                    │
+    │    R1-R4     Potentiomètre 10kΩ     4 unités                   │
+    │    SW1-SW8   Boutons poussoirs       8 unités                  │
+    │    D1-D14    LEDs (rouge/bleu)       14 unités                 │
+    │    D_PROTECT Diode 1N4007           6 unités                   │
+    │    R_SERIES  Résistances 470Ω      12 unités                   │
+    │    R_PULL    Résistances 10kΩ      10 unités                   │
+    │    C_FILT    Condensateurs divers   10+ unités                 │
+    │                                                                 │
+    │    Total: ~80 composants                                       │
+    │                                                                 │
+    └─────────────────────────────────────────────────────────────────┘
+
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                   TABLE DE VÉRITÉ - RELAIS                      │
+    │                                                                 │
+    │    Phase  Durée   K1   K2   K3   K4   K5   K6   Action        │
+    │    ──────────────────────────────────────────────────────────  │
+    │    1      3 sec   ON   ON   OFF  OFF  OFF  OFF  Remplissage   │
+    │    2      5 sec   OFF  OFF  ON   OFF  OFF  ON   Lavage        │
+    │    3      4 sec   OFF  OFF  OFF  ON   OFF  OFF  Rinçage       │
+    │    4      2 sec   OFF  OFF  OFF  OFF  ON   OFF  Vidange       │
+    │    5      3 sec   OFF  OFF  OFF  OFF  OFF  ON   Essorage      │
+    │    6      <1 sec  OFF  OFF  OFF  OFF  OFF  OFF  Fin           │
+    │                                                                 │
+    └─────────────────────────────────────────────────────────────────┘
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║                    SYSTÈME PRÊT POUR SIMULATION PROTEUS                       ║
+║                                                                               ║
+║    Pour voir le schéma complet dans Proteus:                                 ║
+║    1. Ouvrez WashingMachine.pdsprj                                           ║
+║    2. Double-cliquez sur WashingMachine.dsn                                  ║
+║    3. Appuyez sur F5 pour lancer la simulation                               ║
+║                                                                               ║
+║    ✓ Tous les composants sont connectés                                      ║
+║    ✓ Toutes les interconnexions sont vérifiées                               ║
+║    ✓ Le code Arduino est chargé                                              ║
+║    ✓ Les capteurs et boutons sont opérationnels                              ║
+║    ✓ La simulation peut démarrer immédiatement                               ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
