@@ -1,0 +1,450 @@
+;Proteus Design Interchange Format
+(protos 1)
+(fragment LIBRARY_IDENT
+   (name "WLIB")
+   (type SCHEMATIC))
+
+(component MEGA2560_1
+   (library "WLIB")
+   (symbolVariantName "")
+   (reference "U1")
+   (value "MEGA2560")
+   (datasheet "")
+   (description "Arduino Mega 2560 Microcontroller")
+   (properties
+      (property "PACKAGE" "MEGA2560")
+      (property "MPN" "ATMEGA2560")
+      (property "MANUFACTURER" "Atmel")
+      (property "FREQ" "16MHz")
+      (property "FLASH" "256KB")
+      (property "RAM" "8KB"))
+   (pins
+      (pin "1" (name "RESET") (type "INPUT"))
+      (pin "2" (name "RXD0") (type "INPUT"))
+      (pin "3" (name "TXD0") (type "OUTPUT"))
+      (pin "20" (name "SDA") (type "BIDIR"))
+      (pin "21" (name "SCL") (type "BIDIR"))
+      (pin "22" (name "RELAY_1") (type "OUTPUT"))
+      (pin "23" (name "RELAY_2") (type "OUTPUT"))
+      (pin "24" (name "RELAY_3") (type "OUTPUT"))
+      (pin "25" (name "RELAY_4") (type "OUTPUT"))
+      (pin "26" (name "RELAY_5") (type "OUTPUT"))
+      (pin "27" (name "RELAY_6") (type "OUTPUT"))
+      (pin "28" (name "BTN_MENU") (type "INPUT"))
+      (pin "29" (name "BTN_UP") (type "INPUT"))
+      (pin "30" (name "BTN_DOWN") (type "INPUT"))
+      (pin "31" (name "BTN_OK") (type "INPUT"))
+      (pin "32" (name "SIG_START") (type "INPUT"))
+      (pin "33" (name "SIG_STOP") (type "INPUT"))
+      (pin "34" (name "SIG_MODE") (type "INPUT"))
+      (pin "35" (name "SIG_TEMP") (type "INPUT"))
+      (pin "A0" (name "SENSOR_WATER") (type "ANALOG_IN"))
+      (pin "A1" (name "SENSOR_SOAP") (type "ANALOG_IN"))
+      (pin "A2" (name "SENSOR_DETERGENT") (type "ANALOG_IN"))
+      (pin "A3" (name "SENSOR_RINSE") (type "ANALOG_IN"))
+      (pin "VCC" (name "VCC_5V") (type "POWER"))
+      (pin "GND" (name "GND") (type "GROUND"))))
+
+(component RELAY_1K1
+   (library "WLIB")
+   (reference "K1")
+   (value "RELAY-5V-5A")
+   (description "Electromagnetic Relay 5V 5A - Water Valve")
+   (pins
+      (pin "1" (name "IN") (type "INPUT"))
+      (pin "2" (name "VCC") (type "POWER"))
+      (pin "3" (name "GND") (type "GROUND"))
+      (pin "4" (name "NO") (type "PASSIVE"))
+      (pin "5" (name "NC") (type "PASSIVE"))))
+
+(component RELAY_1K2
+   (library "WLIB")
+   (reference "K2")
+   (value "RELAY-5V-5A")
+   (description "Electromagnetic Relay 5V 5A - Soap Valve")
+   (pins
+      (pin "1" (name "IN") (type "INPUT"))
+      (pin "2" (name "VCC") (type "POWER"))
+      (pin "3" (name "GND") (type "GROUND"))
+      (pin "4" (name "NO") (type "PASSIVE"))
+      (pin "5" (name "NC") (type "PASSIVE"))))
+
+(component RELAY_1K3
+   (library "WLIB")
+   (reference "K3")
+   (value "RELAY-5V-5A")
+   (description "Electromagnetic Relay 5V 5A - Detergent Valve")
+   (pins
+      (pin "1" (name "IN") (type "INPUT"))
+      (pin "2" (name "VCC") (type "POWER"))
+      (pin "3" (name "GND") (type "GROUND"))
+      (pin "4" (name "NO") (type "PASSIVE"))
+      (pin "5" (name "NC") (type "PASSIVE"))))
+
+(component RELAY_1K4
+   (library "WLIB")
+   (reference "K4")
+   (value "RELAY-5V-5A")
+   (description "Electromagnetic Relay 5V 5A - Rinse Valve")
+   (pins
+      (pin "1" (name "IN") (type "INPUT"))
+      (pin "2" (name "VCC") (type "POWER"))
+      (pin "3" (name "GND") (type "GROUND"))
+      (pin "4" (name "NO") (type "PASSIVE"))
+      (pin "5" (name "NC") (type "PASSIVE"))))
+
+(component RELAY_1K5
+   (library "WLIB")
+   (reference "K5")
+   (value "RELAY-5V-5A")
+   (description "Electromagnetic Relay 5V 5A - Drain Pump")
+   (pins
+      (pin "1" (name "IN") (type "INPUT"))
+      (pin "2" (name "VCC") (type "POWER"))
+      (pin "3" (name "GND") (type "GROUND"))
+      (pin "4" (name "NO") (type "PASSIVE"))
+      (pin "5" (name "NC") (type "PASSIVE"))))
+
+(component RELAY_1K6
+   (library "WLIB")
+   (reference "K6")
+   (value "RELAY-5V-5A")
+   (description "Electromagnetic Relay 5V 5A - Spin Motor")
+   (pins
+      (pin "1" (name "IN") (type "INPUT"))
+      (pin "2" (name "VCC") (type "POWER"))
+      (pin "3" (name "GND") (type "GROUND"))
+      (pin "4" (name "NO") (type "PASSIVE"))
+      (pin "5" (name "NC") (type "PASSIVE"))))
+
+(component LCD_MODULE_LCD1
+   (library "WLIB")
+   (reference "LCD1")
+   (value "LCD20X4_I2C")
+   (description "LCD 20x4 I2C Module - Address 0x27")
+   (pins
+      (pin "1" (name "GND") (type "GROUND"))
+      (pin "2" (name "VCC") (type "POWER"))
+      (pin "3" (name "SDA") (type "BIDIR"))
+      (pin "4" (name "SCL") (type "BIDIR"))))
+
+(component POT_R1
+   (library "WLIB")
+   (reference "R1")
+   (value "10K")
+   (description "10K Potentiometer - Water Level Sensor")
+   (pins
+      (pin "1" (name "VCC") (type "POWER"))
+      (pin "2" (name "OUT") (type "ANALOG"))
+      (pin "3" (name "GND") (type "GROUND"))))
+
+(component POT_R2
+   (library "WLIB")
+   (reference "R2")
+   (value "10K")
+   (description "10K Potentiometer - Soap Level Sensor")
+   (pins
+      (pin "1" (name "VCC") (type "POWER"))
+      (pin "2" (name "OUT") (type "ANALOG"))
+      (pin "3" (name "GND") (type "GROUND"))))
+
+(component POT_R3
+   (library "WLIB")
+   (reference "R3")
+   (value "10K")
+   (description "10K Potentiometer - Detergent Level Sensor")
+   (pins
+      (pin "1" (name "VCC") (type "POWER"))
+      (pin "2" (name "OUT") (type "ANALOG"))
+      (pin "3" (name "GND") (type "GROUND"))))
+
+(component POT_R4
+   (library "WLIB")
+   (reference "R4")
+   (value "10K")
+   (description "10K Potentiometer - Rinse Level Sensor")
+   (pins
+      (pin "1" (name "VCC") (type "POWER"))
+      (pin "2" (name "OUT") (type "ANALOG"))
+      (pin "3" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW1
+   (library "WLIB")
+   (reference "SW1")
+   (value "PUSH_BUTTON")
+   (description "Push Button - Menu")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW2
+   (library "WLIB")
+   (reference "SW2")
+   (value "PUSH_BUTTON")
+   (description "Push Button - Up")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW3
+   (library "WLIB")
+   (reference "SW3")
+   (value "PUSH_BUTTON")
+   (description "Push Button - Down")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW4
+   (library "WLIB")
+   (reference "SW4")
+   (value "PUSH_BUTTON")
+   (description "Push Button - OK")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW5
+   (library "WLIB")
+   (reference "SW5")
+   (value "PUSH_BUTTON")
+   (description "Signal Button - START")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW6
+   (library "WLIB")
+   (reference "SW6")
+   (value "PUSH_BUTTON")
+   (description "Signal Button - STOP")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW7
+   (library "WLIB")
+   (reference "SW7")
+   (value "PUSH_BUTTON")
+   (description "Signal Button - MODE")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component BUTTON_SW8
+   (library "WLIB")
+   (reference "SW8")
+   (value "PUSH_BUTTON")
+   (description "Signal Button - TEMP")
+   (pins
+      (pin "1" (name "PIN") (type "INPUT"))
+      (pin "2" (name "GND") (type "GROUND"))))
+
+(component LED_D1
+   (library "WLIB")
+   (reference "D1")
+   (value "LED_RED")
+   (description "Red LED 3mm - Relay 1 Indicator")
+   (pins
+      (pin "1" (name "ANODE") (type "PASSIVE"))
+      (pin "2" (name "CATHODE") (type "PASSIVE"))))
+
+(component LED_D2
+   (library "WLIB")
+   (reference "D2")
+   (value "LED_RED")
+   (description "Red LED 3mm - Relay 2 Indicator"))
+
+(component LED_D3
+   (library "WLIB")
+   (reference "D3")
+   (value "LED_RED")
+   (description "Red LED 3mm - Relay 3 Indicator"))
+
+(component LED_D4
+   (library "WLIB")
+   (reference "D4")
+   (value "LED_RED")
+   (description "Red LED 3mm - Relay 4 Indicator"))
+
+(component LED_D5
+   (library "WLIB")
+   (reference "D5")
+   (value "LED_RED")
+   (description "Red LED 3mm - Relay 5 Indicator"))
+
+(component LED_D6
+   (library "WLIB")
+   (reference "D6")
+   (value "LED_RED")
+   (description "Red LED 3mm - Relay 6 Indicator"))
+
+(component LED_D7
+   (library "WLIB")
+   (reference "D7")
+   (value "LED_RED")
+   (description "Red LED 3mm - Menu Button Indicator"))
+
+(component LED_D8
+   (library "WLIB")
+   (reference "D8")
+   (value "LED_RED")
+   (description "Red LED 3mm - Up Button Indicator"))
+
+(component LED_D9
+   (library "WLIB")
+   (reference "D9")
+   (value "LED_RED")
+   (description "Red LED 3mm - Down Button Indicator"))
+
+(component LED_D10
+   (library "WLIB")
+   (reference "D10")
+   (value "LED_RED")
+   (description "Red LED 3mm - OK Button Indicator"))
+
+(component LED_D11
+   (library "WLIB")
+   (reference "D11")
+   (value "LED_BLUE")
+   (description "Blue LED 3mm - START Signal Indicator"))
+
+(component LED_D12
+   (library "WLIB")
+   (reference "D12")
+   (value "LED_BLUE")
+   (description "Blue LED 3mm - STOP Signal Indicator"))
+
+(component LED_D13
+   (library "WLIB")
+   (reference "D13")
+   (value "LED_BLUE")
+   (description "Blue LED 3mm - MODE Signal Indicator"))
+
+(component LED_D14
+   (library "WLIB")
+   (reference "D14")
+   (value "LED_BLUE")
+   (description "Blue LED 3mm - TEMP Signal Indicator"))
+
+(net "GND"
+   (net-label "GND")
+   (pins U1.GND K1.GND K2.GND K3.GND K4.GND K5.GND K6.GND 
+          SW1.2 SW2.2 SW3.2 SW4.2 SW5.2 SW6.2 SW7.2 SW8.2
+          R1.GND R2.GND R3.GND R4.GND
+          LCD1.GND
+          D1.CATHODE D2.CATHODE D3.CATHODE D4.CATHODE D5.CATHODE D6.CATHODE
+          D7.CATHODE D8.CATHODE D9.CATHODE D10.CATHODE
+          D11.CATHODE D12.CATHODE D13.CATHODE D14.CATHODE))
+
+(net "VCC_5V"
+   (net-label "VCC")
+   (pins U1.VCC K1.VCC K2.VCC K3.VCC K4.VCC K5.VCC K6.VCC 
+          R1.VCC R2.VCC R3.VCC R4.VCC
+          LCD1.VCC))
+
+(net "RELAY1_IN"
+   (net-label "RELAY1")
+   (pins U1.22 K1.1))
+
+(net "RELAY2_IN"
+   (net-label "RELAY2")
+   (pins U1.23 K2.1))
+
+(net "RELAY3_IN"
+   (net-label "RELAY3")
+   (pins U1.24 K3.1))
+
+(net "RELAY4_IN"
+   (net-label "RELAY4")
+   (pins U1.25 K4.1))
+
+(net "RELAY5_IN"
+   (net-label "RELAY5")
+   (pins U1.26 K5.1))
+
+(net "RELAY6_IN"
+   (net-label "RELAY6")
+   (pins U1.27 K6.1))
+
+(net "I2C_SDA"
+   (net-label "SDA")
+   (pins U1.20 LCD1.3))
+
+(net "I2C_SCL"
+   (net-label "SCL")
+   (pins U1.21 LCD1.4))
+
+(net "BTN_MENU"
+   (net-label "BTN_MENU")
+   (pins U1.28 SW1.1 D7.ANODE))
+
+(net "BTN_UP"
+   (net-label "BTN_UP")
+   (pins U1.29 SW2.1 D8.ANODE))
+
+(net "BTN_DOWN"
+   (net-label "BTN_DOWN")
+   (pins U1.30 SW3.1 D9.ANODE))
+
+(net "BTN_OK"
+   (net-label "BTN_OK")
+   (pins U1.31 SW4.1 D10.ANODE))
+
+(net "SIG_START"
+   (net-label "SIG_START")
+   (pins U1.32 SW5.1 D11.ANODE))
+
+(net "SIG_STOP"
+   (net-label "SIG_STOP")
+   (pins U1.33 SW6.1 D12.ANODE))
+
+(net "SIG_MODE"
+   (net-label "SIG_MODE")
+   (pins U1.34 SW7.1 D13.ANODE))
+
+(net "SIG_TEMP"
+   (net-label "SIG_TEMP")
+   (pins U1.35 SW8.1 D14.ANODE))
+
+(net "SENSOR_WATER"
+   (net-label "SENSOR_WATER")
+   (pins U1.A0 R1.2))
+
+(net "SENSOR_SOAP"
+   (net-label "SENSOR_SOAP")
+   (pins U1.A1 R2.2))
+
+(net "SENSOR_DETERGENT"
+   (net-label "SENSOR_DETERGENT")
+   (pins U1.A2 R3.2))
+
+(net "SENSOR_RINSE"
+   (net-label "SENSOR_RINSE")
+   (pins U1.A3 R4.2))
+
+(net "RELAY1_OUT"
+   (net-label "RELAY1_OUT")
+   (pins K1.4 D1.ANODE))
+
+(net "RELAY2_OUT"
+   (net-label "RELAY2_OUT")
+   (pins K2.4 D2.ANODE))
+
+(net "RELAY3_OUT"
+   (net-label "RELAY3_OUT")
+   (pins K3.4 D3.ANODE))
+
+(net "RELAY4_OUT"
+   (net-label "RELAY4_OUT")
+   (pins K4.4 D4.ANODE))
+
+(net "RELAY5_OUT"
+   (net-label "RELAY5_OUT")
+   (pins K5.4 D5.ANODE))
+
+(net "RELAY6_OUT"
+   (net-label "RELAY6_OUT")
+   (pins K6.4 D6.ANODE))
+
+)
